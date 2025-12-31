@@ -16,18 +16,23 @@
         </div>
         <div class="menu">
             <ul>
-                <li><a href="buscar.html">Buscar</a></li>
-                <li><a href="premium.html">Premium</a></li>
+                <li><a href="{% url 'index' %}">Buscar</a></li>
+                <li><a href="#">Premium</a></li>
             </ul>
         </div>
     </div>
     <div class="context">
-        <h1></h1>
+        <h1 id="titulo"></h1>
         <p>Compara precios, elige calidad y compra inteligente.</p>
         <div class="formulario">
-            <form action="" method="Get">
-                <input type="text" name="producto" placeholder="Escribe un producto...">
-                <button type="submit">Buscar</button>
+            <form id="formulario" action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="nombre">Nombre:</label>
+                {{ form.nombre }}
+                <label for="imagen">Imagen:</label>
+                {{ form.imagen }}
+                {{ form.errors }}
+                <button id="boton" type="submit">Buscar</button>
             </form>
         </div>
     </div>
@@ -47,6 +52,7 @@
         </ul>
     </div>
     <script src="{% static 'js/vinculado.js' %}"></script>
+    <script src="{% static 'js/vinculado2.js' %}?v=4"></script>
 </body>
 
 </html>

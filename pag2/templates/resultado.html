@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado - Compra Inteligente</title>
+    <link rel="stylesheet" href="{% static 'pagp/stilo.css' %}?v=6">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background: #0f0c29;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .result-container {
+            max-width: 600px;
+            margin: 100px auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .result-img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 15px;
+            margin: 20px 0;
+            object-fit: contain;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-volver {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: white;
+            color: #0f0c29;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            background: #f0f0f0;
+        }
+
+        /* Background animation from index */
+        .area {
+            background: transparent;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .circles li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="result-container">
+        <h1>Resultado</h1>
+        {% if producto %}
+        <div class="product-card">
+            <p style="font-size: 1.2rem;"><strong>Producto:</strong> {{ producto.nombre }}</p>
+            {% if producto.imagen %}
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="result-img">
+            {% else %}
+            <p style="color: #ccc;">(Sin imagen adjunta)</p>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>No se encontraron productos recientes.</p>
+        {% endif %}
+        <a href="{% url 'index' %}" class="btn-volver">← Volver a Buscar</a>
+    </div>
+
+    <div class="area">
+        <ul class="circles">
+            <li style="left: 25%; width: 80px; height: 80px; animation-delay: 0s;"></li>
+            <li style="left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s;"></li>
+            <li style="left: 70%; width: 20px; height: 20px; animation-delay: 4s;"></li>
+            <li style="left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s;"></li>
+            <li style="left: 65%; width: 20px; height: 20px; animation-delay: 0s;"></li>
+            <li style="left: 75%; width: 110px; height: 110px; animation-delay: 3s;"></li>
+            <li style="left: 35%; width: 150px; height: 150px; animation-delay: 7s;"></li>
+        </ul>
+    </div>
+</body>
+
+</html>
